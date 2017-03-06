@@ -1,0 +1,7 @@
+domain\Tweets.class
+dao\ProfileDAO.class
+util\Init.class
+boudary\rest\ProfileResource.class
+boudary\rest\JARSconfig.class
+domain\Profile.class
+service\ProfileService.class
