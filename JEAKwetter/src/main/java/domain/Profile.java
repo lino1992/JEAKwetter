@@ -26,12 +26,53 @@ public class Profile implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Column(length=40) 
+    @Column(length=140) 
     private String bio;
     private String location;
     private String website;
-    private List<Profile> Followers;
-    private List<Profile> Following;
+    private String username;
+    private String password;
+    
+    private List<Tweets> tweets;
+    private List<Profile> following;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Tweets> getTweets() {
+        return tweets;
+    }
+
+    public void setTweets(List<Tweets> tweets) {
+        this.tweets = tweets;
+    }
+    
+
+    public Profile(Long id, String name, String bio, String location, String website, String username, String password, List<Profile> Following, List<Tweets> tweet) {
+        this.id = id;
+        this.name = name;
+        this.bio = bio;
+        this.location = location;
+        this.website = website;
+        this.username = username;
+        this.password = password;
+        this.following = Following;
+        this.tweet = tweet;
+    }
+    
 
     public List<Tweets> getTweet() {
         return tweet;
@@ -91,20 +132,16 @@ public class Profile implements Serializable {
         this.website = website;
     }
 
-    public List<Profile> getFollowers() {
-        return Followers;
-    }
-
-    public void setFollowers(List<Profile> Followers) {
-        this.Followers = Followers;
-    }
-
     public List<Profile> getFollowing() {
-        return Following;
+        return following;
     }
 
-    public void setFollowing(List<Profile> Following) {
-        this.Following = Following;
+    public void setFollowing(List<Profile> following) {
+        this.following = following;
+    }
+    
+    public void addFollowing(Profile profile){
+        this.following.add(profile);
     }
     
     

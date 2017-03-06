@@ -28,4 +28,6 @@ public class ProfileService {
     public void createNewUser(String p){
         pr.createNewUser(new Profile(p));
     }
+    
+    
 }

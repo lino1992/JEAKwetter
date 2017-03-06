@@ -33,4 +33,52 @@ public class ProfileDAO {
         save(p);
     }
     
+    public boolean editUsername(int id, String newUsername){
+        try {
+            Profile user =  em.find(Profile.class, id);
+            user.setName(newUsername);
+            em.merge(user);
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
+    }
+    
+    public boolean editProfileBio(int id , String bio){
+       try {
+            Profile user =  em.find(Profile.class, id);
+            user.setBio(bio);
+            em.merge(user);
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
+    }
+    
+    public boolean editProfileLocation(int id , String location){
+       try {
+            Profile user =  em.find(Profile.class, id);
+            user.setLocation(location);
+            em.merge(user);
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
+    }
+    
+    public boolean addFollowing(int id, Profile profile){
+        try {
+            Profile user =  em.find(Profile.class, id);
+            user.addFollowing(profile);
+            em.merge(user);
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
+    }
+    
 }

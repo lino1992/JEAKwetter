@@ -6,36 +6,33 @@
 package domain;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  *
  * @author lino_
  */
 @Entity
-public class Tweets implements Serializable {
+public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(length=140) 
-    private String tekst;
-    private List<Profile> hearts;
+    private String userRight;
+  
+    private Profile user;
 
-    public Tweets(Long id, String tekst, List<Profile> hearts) {
+    public Role(Long id, String right, Profile user) {
         this.id = id;
-        this.tekst = tekst;
-        this.hearts = hearts;
+        this.userRight = right;
+        this.user = user;
+    }
+    public Role() {
     }
     
-    public Tweets(){  
-    }
-
 
     public Long getId() {
         return id;
@@ -45,21 +42,20 @@ public class Tweets implements Serializable {
         this.id = id;
     }
 
-    public String getTekst() {
-        return tekst;
+    public String getRight() {
+        return userRight;
     }
 
-    public void setTekst(String tekst) {
-        this.tekst = tekst;
+    public void setRight(String right) {
+        this.userRight = right;
     }
 
-    public List<Profile> getHearts() {
-        return hearts;
+    public Profile getUser() {
+        return user;
     }
 
-    public void setHearts(List<Profile> hearts) {
-        this.hearts = hearts;
+    public void setUser(Profile user) {
+        this.user = user;
     }
-    
     
 }
