@@ -6,11 +6,15 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -19,43 +23,35 @@ import javax.persistence.Table;
 @Entity
 public class Role implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String userRight;
-  
-    private Profile user;
+    private String groupName;
+    
+    @ManyToMany
+    @JoinTable(name="USER_GROUP",
+    joinColumns = @JoinColumn(name = "groupName",
+    referencedColumnName = "groupName"),
+    inverseJoinColumns = @JoinColumn(name = "username",
+    referencedColumnName = "username"))
+    private List<Profile> profile_role;
 
-    public Role(Long id, String right, Profile user) {
-        this.id = id;
-        this.userRight = right;
-        this.user = user;
+    public String getUserRight() {
+        return groupName;
+    }
+    
+    public List<Profile> getProfile_role() {
+        return profile_role;
+    }
+
+    public void setProfile_role(List<Profile> profile_role) {
+        this.profile_role = profile_role;
+    }
+    
+
+    public Role(String right) {
+        this.groupName = right;
+        this.profile_role = new ArrayList<>();
     }
     public Role() {
     }
     
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getRight() {
-        return userRight;
-    }
-
-    public void setRight(String right) {
-        this.userRight = right;
-    }
-
-    public Profile getUser() {
-        return user;
-    }
-
-    public void setUser(Profile user) {
-        this.user = user;
-    }
     
 }

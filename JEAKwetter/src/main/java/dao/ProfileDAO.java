@@ -6,6 +6,8 @@
 package dao;
 
 import domain.Profile;
+import domain.Role;
+import domain.Tweets;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,12 +27,13 @@ public class ProfileDAO {
         return em.createNamedQuery("Profile.all").getResultList();
     }
     
-    public void save(Profile p){
+    public Profile save(Profile p){
         em.persist(p);
+        return p;
     }
 
-    public void createNewUser(Profile p) {
-        save(p);
+    public Profile createNewUser(Profile p) {
+         return save(p);
     }
     
     public boolean editUsername(int id, String newUsername){
@@ -80,5 +83,40 @@ public class ProfileDAO {
             return false;
         }
     }
+    
+    public List<Profile> getAllFollowing(int profileID){
+        try{
+            List<Profile> result = em.find(Profile.class, profileID).getFollowing();
+            return result;
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
+    
+    public List<Profile> getAllFollower(int profileID){
+        try{
+            List<Profile> result = em.createQuery("Select p.* from profile p where t.profile_id = :id").setParameter("id", profileID).getResultList();
+            return result;
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
+    
+    public List<Tweets> getAllTweets(int profileID){
+        try {
+            List<Tweets> result = em.find(Profile.class, profileID).getTweets();
+            return result;
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
+    
+    
+
+    
+
     
 }

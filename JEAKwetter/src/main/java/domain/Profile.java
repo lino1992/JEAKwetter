@@ -6,13 +6,17 @@
 package domain;
 
 import java.io.Serializable;
+import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -30,11 +34,32 @@ public class Profile implements Serializable {
     private String bio;
     private String location;
     private String website;
+    @Column(unique = true)
     private String username;
+    @Column (length = 500)
     private String password;
+    private Blob picture;
     
-    private List<Tweets> tweets;
+    @ManyToMany
     private List<Profile> following;
+    
+    @ManyToMany(mappedBy = "profile_role")
+    private List<Role> role;
+    
+    @OneToMany(mappedBy = "profile")
+    private List<Tweets> tweets;
+    
+    @ManyToMany(mappedBy = "following")
+    private List<Profile> profile;
+    
+
+    public List<Tweets> getTweets() {
+        return tweets;
+    }
+
+    public void setTweets(List<Tweets> tweets) {
+        this.tweets = tweets;
+    }
 
     public String getUsername() {
         return username;
@@ -52,38 +77,15 @@ public class Profile implements Serializable {
         this.password = password;
     }
 
-    public List<Tweets> getTweets() {
-        return tweets;
-    }
-
-    public void setTweets(List<Tweets> tweets) {
-        this.tweets = tweets;
-    }
-    
-
-    public Profile(Long id, String name, String bio, String location, String website, String username, String password, List<Profile> Following, List<Tweets> tweet) {
-        this.id = id;
+    public Profile(String name, String username, String password) {
         this.name = name;
-        this.bio = bio;
-        this.location = location;
-        this.website = website;
         this.username = username;
         this.password = password;
-        this.following = Following;
-        this.tweet = tweet;
-    }
-    
-
-    public List<Tweets> getTweet() {
-        return tweet;
+        this.following = new ArrayList<>();
+        this.role = new ArrayList<>();
+        this.tweets = new ArrayList<>();
     }
 
-    public void setTweet(List<Tweets> tweet) {
-        this.tweet = tweet;
-    }
-    
-    private List<Tweets> tweet;
-    
     public Profile(){
         
     }
@@ -143,8 +145,6 @@ public class Profile implements Serializable {
     public void addFollowing(Profile profile){
         this.following.add(profile);
     }
-    
-    
     
     
     

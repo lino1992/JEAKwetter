@@ -6,12 +6,14 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 
 /**
@@ -19,24 +21,50 @@ import javax.persistence.NamedQuery;
  * @author lino_
  */
 @Entity
+@NamedQuery(name = "Tweets.all", query="SELECT t FROM Tweets t")
 public class Tweets implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length=140) 
     private String tekst;
+    private int complain;
     private List<Profile> hearts;
-
-    public Tweets(Long id, String tekst, List<Profile> hearts) {
-        this.id = id;
-        this.tekst = tekst;
-        this.hearts = hearts;
-    }
+    @ManyToOne
+    private Profile profile;
     
     public Tweets(){  
     }
+    public Tweets(String tekst, int complain, List<Profile> hearts, Profile profile) {
+        this.tekst = tekst;
+        this.complain = complain;
+        this.hearts = hearts;
+        this.profile = profile;
+        this.hearts = new ArrayList<>();
+    }
+    public int getComplaint() {
+        return complain;
+    }
 
+    public void setComplaint(int complain) {
+        this.complain = complain;
+    }
 
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+    public Profile getTweets_ID() {
+        return profile;
+    }
+
+    public void setTweets_ID(Profile profile) {
+        this.profile = profile;
+    }
+    
     public Long getId() {
         return id;
     }

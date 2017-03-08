@@ -6,6 +6,7 @@
 package dao;
 
 
+import domain.Profile;
 import domain.Role;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,7 +26,13 @@ public class RoleDAO {
         em.persist(role);
     }
 
-    public void createNewUser(Role role) {
+    public void createNewRole(Role role) {
         save(role);
     }
+    
+    public void addRoleToProfile(Role role){
+        em.merge(role);
+    }
+    
+    
 }
