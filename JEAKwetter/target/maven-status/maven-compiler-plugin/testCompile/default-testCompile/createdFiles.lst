@@ -1,4 +1,4 @@
-kwetter\domain\ProfileDomainTest.class
-kwetter\rest\ProfileRestIT.class
-kwetter\dao\ProfileDAOTest.class
-kwetter\service\ProfileServiceTest.class
+kwetter\domain\DomainTest.class
+kwetter\rest\RestIT.class
+kwetter\dao\DAOTest.class
+kwetter\service\ServiceTest.class
