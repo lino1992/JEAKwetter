@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
  * @author lino_
  */
 
-public class DAOTest {
+public class ProfileDAOTest {
     
     Profile profile;
     Profile profile1;

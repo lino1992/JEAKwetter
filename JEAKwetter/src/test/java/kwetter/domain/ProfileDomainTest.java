@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package kwetter.rest;
+package kwetter.domain;
 
+import com.sun.prism.impl.PrismSettings;
+import domain.Profile;
+import domain.Role;
+import domain.Tweets;
+import java.util.ArrayList;
 import java.util.List;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import static org.hamcrest.CoreMatchers.is;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -23,10 +23,12 @@ import static org.junit.Assert.*;
  *
  * @author lino_
  */
-public class RestIT {
+
+public class ProfileDomainTest {
     
-    private Client client;
-    private WebTarget root;
+    
+    Profile profile;
+    Profile profile1;
     
     @BeforeClass
     public static void setUpClass() {
@@ -35,12 +37,10 @@ public class RestIT {
     @AfterClass
     public static void tearDownClass() {
     }
-    
-    
     @Before
     public void setUp() {
-//         client = ClientBuilder.newClient();
-//         root = this.client.target("http://localhost:8080/JEAKwetter/api/Profile/GetAllProfile");
+        
+        
     }
     
     @After
@@ -54,11 +54,15 @@ public class RestIT {
     // public void hello() {}
     
     @Test
-    public void testGetAllUser(){
-//        String mediaType = MediaType.TEXT_PLAIN;
-//        Response response = this.root.request().get();
-//        
-//        assertThat(response.getStatus(), is(200));
-//        assertEquals(0, response.readEntity(List<>().class));
+    public void Test_Profile(){
+        profile = new Profile("lino", "username1", "p@33word");
+        profile1 = new Profile("lino", "username1", "p@33word");
+        //Object is not the same
+        Assert.assertNotEquals("Object is not the same", profile, profile1);
+        //Object has the same name
+        Assert.assertTrue(profile.getName().equalsIgnoreCase(profile1.getName()));
+        
+        
+        
     }
 }

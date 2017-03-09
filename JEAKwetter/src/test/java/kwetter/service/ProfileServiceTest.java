@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
  *
  * @author lino_
  */
-public class ServiceTest {
+public class ProfileServiceTest {
     
     @Inject
     ProfileDAO profileDAO;
