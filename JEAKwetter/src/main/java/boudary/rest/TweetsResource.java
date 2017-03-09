@@ -39,6 +39,7 @@ public class TweetsResource {
     }
     @GET
     @Path("GetAllTweetsWithComplains")
+    @RolesAllowed({"admin_user"})
     public List<Tweets> getAllTweetsWithComplains(){
         return ts.getAllTweetsWithComplains();
     }
@@ -49,6 +50,8 @@ public class TweetsResource {
      public Tweets createNewTweets(Tweets tweets) {
        return ts.createNewTweets(tweets);
     }
+     
+     
      
      
 }
