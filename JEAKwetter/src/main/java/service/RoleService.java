@@ -8,6 +8,7 @@ package service;
 import dao.RoleDAO;
 import domain.Profile;
 import domain.Role;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -20,10 +21,14 @@ public class RoleService {
     @Inject
     RoleDAO r;
     
-    public void createNewRole(Role role) {
-        r.createNewRole(role);
+    public Role createNewRole(Role role) {
+        return r.createNewRole(role);
     }
-    public void addRoleToUser(Role role){
-        r.addRoleToProfile(role);
+    public boolean addRoleToUser(Role role){
+        return r.addRoleToProfile(role);
+    }
+
+    public List<Role> getAllRole() {
+        return r.getAllRole();
     }
 }

@@ -40,18 +40,18 @@ public class Profile implements Serializable {
     private String password;
     private Blob picture;
     
-    @ManyToMany
-    private List<Profile> following;
+
+    
     
     @ManyToMany(mappedBy = "profile_role")
     private List<Role> role;
     
     @OneToMany(mappedBy = "profile")
     private List<Tweets> tweets;
-    
+    @ManyToMany
+    private List<Profile> following;
     @ManyToMany(mappedBy = "following")
-    private List<Profile> profile;
-    
+    private List<Profile> follower;
 
     public List<Tweets> getTweets() {
         return tweets;
@@ -82,8 +82,17 @@ public class Profile implements Serializable {
         this.username = username;
         this.password = password;
         this.following = new ArrayList<>();
+        this.follower = new ArrayList<>();
         this.role = new ArrayList<>();
         this.tweets = new ArrayList<>();
+    }
+
+    public List<Profile> getFollower() {
+        return follower;
+    }
+
+    public void setFollower(List<Profile> follower) {
+        this.follower = follower;
     }
 
     public Profile(){
@@ -142,8 +151,17 @@ public class Profile implements Serializable {
         this.following = following;
     }
     
-    public void addFollowing(Profile profile){
-        this.following.add(profile);
+    public boolean addFollowing(Profile profile){
+        if(!this.following.contains(profile)){
+            this.following.add(profile);
+            return true;
+        }
+        return false;
+        
+    }
+    
+    public void addTweets(Tweets tweets){
+        this.tweets.add(tweets);
     }
     
     

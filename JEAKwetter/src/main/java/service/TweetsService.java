@@ -5,7 +5,9 @@
  */
 package service;
 
+import dao.ProfileDAO;
 import dao.TweetsDAO;
+import domain.Profile;
 import domain.Tweets;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -21,10 +23,6 @@ public class TweetsService {
     @Inject
     TweetsDAO tweets;
     
-     public void createNewTweets(Tweets tweets) {
-        this.tweets.createNewTweets(tweets);
-    }
-    
     public boolean deleteTweets(int tweetsId){
         return this.tweets.deleteTweets(tweetsId);
     }
@@ -32,5 +30,11 @@ public class TweetsService {
     public List<Tweets> getAllTweetsWithComplains(){
         return this.tweets.getAllTweetsWithComplains();
     }
+    
+    public Tweets createNewTweets(Tweets tweets) {
+        return this.tweets.createNewTweets(tweets);
+    }
+    
+    
     
 }

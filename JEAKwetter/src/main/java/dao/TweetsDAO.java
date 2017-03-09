@@ -7,6 +7,8 @@ package dao;
 
 
 
+import domain.Profile;
+import domain.Role;
 import domain.Tweets;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -22,14 +24,6 @@ public class TweetsDAO {
     
     @PersistenceContext
     EntityManager em;
-    
-    public void save(Tweets tweets){
-        em.persist(tweets);
-    }
-
-    public void createNewTweets(Tweets tweets) {
-        save(tweets);
-    }
     
     public boolean deleteTweets(int tweetsId){
         try{
@@ -47,6 +41,16 @@ public class TweetsDAO {
             return result;
         }
         catch (Exception e){
+            return null;
+        }
+    }
+    
+    public Tweets createNewTweets(Tweets tweets) {
+        try{
+           em.persist(tweets);
+           em.flush();
+           return em.find(Tweets.class, tweets.getId());
+        }catch (Exception e) {
             return null;
         }
     }

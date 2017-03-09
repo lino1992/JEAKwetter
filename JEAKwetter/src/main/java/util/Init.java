@@ -34,7 +34,7 @@ public class Init {
     
     @PostConstruct
     public void init(){
-        Profile profile = new Profile( "Lino Thaencharun","lino_t","LAvulveNgox3PY0FRAc+HbMvNY0of1NOuOc6r9r+mmA=");
+        Profile profile = new Profile("Lino Thaencharun","lino_t","LAvulveNgox3PY0FRAc+HbMvNY0of1NOuOc6r9r+mmA=");
         Profile profile1= new Profile("Ruthger van den Eikhof", "ruthger_vde","r");   
 
         pr.createNewUser(profile);
@@ -47,6 +47,8 @@ public class Init {
         role.setProfile_role(profileList);
         
         ro.addRoleToProfile(role);
+        
+        pr.addFollowing(1, 2);
         
        
     }

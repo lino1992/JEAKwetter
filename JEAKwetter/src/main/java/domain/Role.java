@@ -15,12 +15,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author lino_
  */
 @Entity
+@NamedQuery(name = "Role.all", query="SELECT r FROM Role r")
 public class Role implements Serializable {
     @Id
     private String groupName;
@@ -33,8 +35,12 @@ public class Role implements Serializable {
     referencedColumnName = "username"))
     private List<Profile> profile_role;
 
-    public String getUserRight() {
+    public String getGroupName() {
         return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
     
     public List<Profile> getProfile_role() {

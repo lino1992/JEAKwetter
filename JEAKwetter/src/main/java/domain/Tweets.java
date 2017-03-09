@@ -35,10 +35,8 @@ public class Tweets implements Serializable {
     
     public Tweets(){  
     }
-    public Tweets(String tekst, int complain, List<Profile> hearts, Profile profile) {
+    public Tweets(String tekst, Profile profile) {
         this.tekst = tekst;
-        this.complain = complain;
-        this.hearts = hearts;
         this.profile = profile;
         this.hearts = new ArrayList<>();
     }

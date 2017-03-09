@@ -5,11 +5,19 @@
  */
 package boudary.rest;
 
+import domain.Profile;
 import domain.Role;
+import java.util.List;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 import service.RoleService;
 
 /**
@@ -18,13 +26,32 @@ import service.RoleService;
  */
 @Stateless
 @Path("Role")
+@DeclareRoles({"admin_user", "regular_user"})
 public class RoleResource {
     @Inject
     RoleService rs;
     
     @POST
-    @Path("/CreateNewRole")
-    public void createNewRole(Role role) {
-        rs.createNewRole(role);
+    @Path("CreateNewRole")
+    @RolesAllowed({"admin_user"})
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public Role createNewRole(@FormParam("role")String role) {
+        return rs.createNewRole(new Role(role));
     }
+    
+    @GET
+    @Path("GetAllRole")
+    @RolesAllowed({"admin_user"})
+    public List<Role> getAllRole(){
+        return rs.getAllRole();
+    }
+    
+    @POST
+    @Path("AddRoleToUser")
+    @RolesAllowed({"admin_user"})
+    @Consumes("application/json")
+    public boolean addRoleToUser(Role role){
+        return rs.addRoleToUser(role);
+    }
+    
 }

@@ -27,18 +27,27 @@ public class ProfileDAO {
         return em.createNamedQuery("Profile.all").getResultList();
     }
     
-    public Profile save(Profile p){
-        em.persist(p);
-        return p;
+    public Profile getProfileById(int id){
+        try{
+            Long longId = new Long(id);
+            return em.find(Profile.class, longId);
+        }catch (Exception e){
+            return null;
+        }
     }
-
     public Profile createNewUser(Profile p) {
-         return save(p);
+        try{
+           em.persist(p);
+           em.flush();
+           return em.find(Profile.class, p.getId()); 
+        }catch (Exception e) {
+            return null;
+        }
     }
     
     public boolean editUsername(int id, String newUsername){
         try {
-            Profile user =  em.find(Profile.class, id);
+            Profile user =  getProfileById(id);
             user.setName(newUsername);
             em.merge(user);
             return true;
@@ -50,7 +59,7 @@ public class ProfileDAO {
     
     public boolean editProfileBio(int id , String bio){
        try {
-            Profile user =  em.find(Profile.class, id);
+           Profile user =  getProfileById(id);
             user.setBio(bio);
             em.merge(user);
             return true;
@@ -62,7 +71,7 @@ public class ProfileDAO {
     
     public boolean editProfileLocation(int id , String location){
        try {
-            Profile user =  em.find(Profile.class, id);
+           Profile user =  getProfileById(id);
             user.setLocation(location);
             em.merge(user);
             return true;
@@ -72,12 +81,17 @@ public class ProfileDAO {
         }
     }
     
-    public boolean addFollowing(int id, Profile profile){
+    public boolean addFollowing(int id, int followingID){
         try {
-            Profile user =  em.find(Profile.class, id);
-            user.addFollowing(profile);
-            em.merge(user);
-            return true;
+            Profile user =  getProfileById(id);
+            Profile following  = getProfileById(followingID);
+            boolean check = following.addFollowing(user);
+            if(check){
+                em.merge(following);
+                return true;
+            }
+            return false;
+            
         }
         catch(Exception e) {
             return false;
@@ -86,7 +100,8 @@ public class ProfileDAO {
     
     public List<Profile> getAllFollowing(int profileID){
         try{
-            List<Profile> result = em.find(Profile.class, profileID).getFollowing();
+            Long longId = new Long(profileID);
+            List<Profile> result = em.find(Profile.class, longId).getFollowing();
             return result;
         }
         catch (Exception e){
@@ -96,7 +111,8 @@ public class ProfileDAO {
     
     public List<Profile> getAllFollower(int profileID){
         try{
-            List<Profile> result = em.createQuery("Select p.* from profile p where t.profile_id = :id").setParameter("id", profileID).getResultList();
+            Long longId = new Long(profileID);
+            List<Profile> result = em.createQuery("Select p.* from profile p where t.profile_id = :id").setParameter("id", longId).getResultList();
             return result;
         }
         catch (Exception e){
@@ -106,13 +122,28 @@ public class ProfileDAO {
     
     public List<Tweets> getAllTweets(int profileID){
         try {
-            List<Tweets> result = em.find(Profile.class, profileID).getTweets();
+            Long longId = new Long(profileID);
+            List<Tweets> result = em.find(Profile.class, longId).getTweets();
             return result;
         }
         catch (Exception e){
             return null;
         }
     }
+
+    public boolean editProfileWebsite(int id, String website) {
+        try {
+            Profile user =  getProfileById(id);
+            user.setWebsite(website);
+            em.merge(user);
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
+    }
+    
+    
     
     
 

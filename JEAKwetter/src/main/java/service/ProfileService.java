@@ -23,12 +23,14 @@ public class ProfileService {
     @Inject
     ProfileDAO pr;
     
+    
+    
     public List<Profile> allProfile(){
         return pr.allProfile();
     }
     
-    public void createNewUser(String p){
-        pr.createNewUser(new Profile(p));
+    public Profile createNewUser(Profile profile){
+        return pr.createNewUser(profile);
     }
     
     public boolean editUsername(int id, String newUsername){
@@ -43,8 +45,8 @@ public class ProfileService {
        return pr.editProfileLocation(id, location);
     }
     
-    public boolean addFollowing(int id, Profile profile){
-        return pr.addFollowing(id, profile);
+    public boolean addFollowing(int id, int followingID){
+        return pr.addFollowing(id, followingID);
     }
     
     public List<Profile> getAllFollowing(int profileID){
@@ -58,6 +60,12 @@ public class ProfileService {
     public List<Tweets> getAllTweets(int profileID){
         return pr.getAllTweets(profileID);
     }
+
+    public boolean editProfileWebsite(int id, String website) {
+        return pr.editProfileWebsite(id, website);
+    }
+    
+    
     
     
     
