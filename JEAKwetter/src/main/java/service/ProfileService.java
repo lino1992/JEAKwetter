@@ -64,6 +64,10 @@ public class ProfileService {
     public boolean editProfileWebsite(int id, String website) {
         return pr.editProfileWebsite(id, website);
     }
+
+    public void setDAO(ProfileDAO profileDAO) {
+        this.pr = profileDAO;
+    }
     
     
     

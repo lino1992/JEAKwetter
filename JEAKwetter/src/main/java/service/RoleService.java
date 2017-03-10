@@ -31,4 +31,8 @@ public class RoleService {
     public List<Role> getAllRole() {
         return r.getAllRole();
     }
+
+    public void setDAO(RoleDAO roleDAO) {
+        this.r = roleDAO;
+    }
 }

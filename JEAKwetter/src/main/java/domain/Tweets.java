@@ -5,6 +5,7 @@
  */
 package domain;
 
+import dao.TweetsDAO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +87,7 @@ public class Tweets implements Serializable {
     public void setHearts(List<Profile> hearts) {
         this.hearts = hearts;
     }
+
     
     
 }

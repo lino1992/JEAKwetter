@@ -30,6 +30,9 @@ public class ProfileDomainTest {
     Profile profile;
     Profile profile1;
     
+    Tweets tweets;
+    Role role;
+    
     @BeforeClass
     public static void setUpClass() {
     }
@@ -61,6 +64,22 @@ public class ProfileDomainTest {
         Assert.assertNotEquals("Object is not the same", profile, profile1);
         //Object has the same name
         Assert.assertTrue(profile.getName().equalsIgnoreCase(profile1.getName()));
+        
+        
+        profile.addFollowing(profile1);
+        
+        Assert.assertTrue(1 == profile.getFollowing().size());
+        
+        tweets = new Tweets("Test tweets", profile);
+        Assert.assertEquals(tweets.getProfile(), profile);
+        
+        
+        role = new Role("Tester");
+        List<Profile> listUser = new ArrayList<>();
+        listUser.add(profile);
+        role.setProfile_role(listUser);
+        
+        Assert.assertTrue(1 == role.getProfile_role().size());
         
         
         

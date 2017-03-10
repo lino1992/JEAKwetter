@@ -6,9 +6,12 @@ util\Init.class
 boudary\rest\RoleResource.class
 boudary\rest\ProfileResource.class
 dao\RoleDAO.class
+domain\Tweets_.class
+domain\Profile_.class
 domain\Tweets.class
 boudary\rest\TweetsResource.class
 boudary\rest\JARSconfig.class
+domain\Role_.class
 service\TweetsService.class
 domain\Profile.class
 service\RoleService.class

@@ -34,6 +34,10 @@ public class TweetsService {
     public Tweets createNewTweets(Tweets tweets) {
         return this.tweets.createNewTweets(tweets);
     }
+
+    public void setDAO(TweetsDAO tweetsDAO) {
+        this.tweets = tweetsDAO;
+    }
     
     
     

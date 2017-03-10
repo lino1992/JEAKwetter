@@ -6,7 +6,11 @@
 package kwetter.service;
 
 import dao.ProfileDAO;
+import dao.RoleDAO;
+import dao.TweetsDAO;
 import domain.Profile;
+import domain.Role;
+import domain.Tweets;
 import javax.inject.Inject;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.After;
@@ -15,17 +19,37 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.verify;
+import org.mockito.runners.MockitoJUnitRunner;
+import service.ProfileService;
+import service.RoleService;
+import service.TweetsService;
 
 /**
  *
  * @author lino_
  */
+@RunWith(MockitoJUnitRunner.class)
 public class ProfileServiceTest {
     
-    @Inject
+    RoleService rlService;
+    TweetsService tsService;
+    ProfileService psservice;
+    @Mock
     ProfileDAO profileDAO;
     
+    @Mock
+    RoleDAO roleDAO;
+    
+    @Mock
+    TweetsDAO tweetsDAO;
+    
     Profile profile;
+    Role role;
+    Tweets tweets;
     
     @BeforeClass
     public static void setUpClass() {
@@ -37,6 +61,14 @@ public class ProfileServiceTest {
     
     @Before
     public void setUp() {
+        psservice = new ProfileService();
+        psservice.setDAO(profileDAO);
+        
+        rlService = new RoleService();
+        rlService.setDAO(roleDAO);
+        
+        tsService = new TweetsService();
+        tsService.setDAO(tweetsDAO);
     }
     
     @After
@@ -51,10 +83,28 @@ public class ProfileServiceTest {
     
     @Test
     public void Test_SaveUser(){
-//        profile = profile = new Profile( "user1", "bio test1","eindhoven", "www.test1.com", "username1", "p@33word1");
-//       Profile profileResult =  profileDAO.createNewUser(profile);
-//       
-//       assertThat(profileResult, is(profile));
-//       verify(_entityManager).persist(profile);
+       profile = new Profile( "user1", "username1", "p@33word1");
+       psservice.createNewUser(profile);
+       
+       verify(profileDAO, Mockito.times(1)).createNewUser(profile);
     }
+    
+    @Test
+    public void Test_SaveRole(){
+       role = new Role("Test");
+       rlService.createNewRole(role);
+       
+        verify(roleDAO, Mockito.times(1)).createNewRole(role);
+    }
+    
+    @Test
+    public void Test_SaveTweets(){
+        profile = new Profile( "user1", "username1", "p@33word1");
+       tweets = new Tweets("Test tweets", profile);
+       tsService.createNewTweets(tweets);
+       
+        verify(tweetsDAO, Mockito.times(1)).createNewTweets(tweets);
+    }
+    
+    
 }
