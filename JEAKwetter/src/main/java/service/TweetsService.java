@@ -22,19 +22,33 @@ public class TweetsService {
     
     @Inject
     TweetsDAO tweets;
-    
+    /**
+     * 
+     * @param tweetsId
+     * @return 
+     */
     public boolean deleteTweets(int tweetsId){
         return this.tweets.deleteTweets(tweetsId);
     }
-    
+    /**
+     * 
+     * @return 
+     */
     public List<Tweets> getAllTweetsWithComplains(){
         return this.tweets.getAllTweetsWithComplains();
     }
-    
+    /**
+     * 
+     * @param tweets
+     * @return 
+     */
     public Tweets createNewTweets(Tweets tweets) {
         return this.tweets.createNewTweets(tweets);
     }
-
+    /**
+     * 
+     * @param tweetsDAO 
+     */
     public void setDAO(TweetsDAO tweetsDAO) {
         this.tweets = tweetsDAO;
     }

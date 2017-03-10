@@ -20,18 +20,33 @@ import javax.inject.Inject;
 public class RoleService {
     @Inject
     RoleDAO r;
-    
+    /**
+     * 
+     * @param role
+     * @return 
+     */
     public Role createNewRole(Role role) {
         return r.createNewRole(role);
     }
+    /**
+     * 
+     * @param role
+     * @return 
+     */
     public boolean addRoleToUser(Role role){
         return r.addRoleToProfile(role);
     }
-
+    /**
+     * 
+     * @return 
+     */
     public List<Role> getAllRole() {
         return r.getAllRole();
     }
-
+    /**
+     * 
+     * @param roleDAO 
+     */
     public void setDAO(RoleDAO roleDAO) {
         this.r = roleDAO;
     }
