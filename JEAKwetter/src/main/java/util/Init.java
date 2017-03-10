@@ -34,21 +34,30 @@ public class Init {
     
     @PostConstruct
     public void init(){
-        Profile profile = new Profile("Lino Thaencharun","lino_t","LAvulveNgox3PY0FRAc+HbMvNY0of1NOuOc6r9r+mmA=");
-        Profile profile1= new Profile("Ruthger van den Eikhof", "ruthger_vde","r");   
+        Profile profile = new Profile("Lino Thaencharun","lino_t",Hash.stringToHash("Lino"));
+        Profile profile1= new Profile("Ruthger van den Eikhof", "ruthger_vde",Hash.stringToHash("Ruthger"));   
 
         pr.createNewUser(profile);
         pr.createNewUser(profile1);
         Role role = new Role("Regular");
+        Role role1 = new Role("Admin");
         ro.createNewRole(role);
         
         List<Profile> profileList = new ArrayList<>();
         profileList.add(profile);
         role.setProfile_role(profileList);
         
+        List<Profile> profileList1 = new ArrayList<>();
+        profileList1.add(profile1);
+        role1.setProfile_role(profileList1);
+        
         ro.addRoleToProfile(role);
+        ro.addRoleToProfile(role1);
+        
+        
         
         pr.addFollowing(1, 2);
+ 
         
        
     }

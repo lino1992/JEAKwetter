@@ -1,4 +1,5 @@
 dao\TweetsDAO.class
+util\Hash.class
 dao\ProfileDAO.class
 domain\Role.class
 util\Init.class
