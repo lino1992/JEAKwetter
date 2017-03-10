@@ -6,9 +6,7 @@
 package domain;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,57 +27,19 @@ public class Tweets implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length=140) 
-    private String textMessage;
-    private String hashTag;
+    private String tekst;
     private int complain;
-    private Date dateTime;
-    
     private List<Profile> hearts;
     @ManyToOne
     private Profile profile;
     
     public Tweets(){  
     }
-    public Tweets(String textMessage, Profile profile) {
-        this.textMessage = textMessage;
-        this.dateTime = new Date();
+    public Tweets(String tekst, Profile profile) {
+        this.tekst = tekst;
         this.profile = profile;
         this.hearts = new ArrayList<>();
     }
-
-    public String getTextMessage() {
-        return textMessage;
-    }
-
-    public void setTextMessage(String textMessage) {
-        this.textMessage = textMessage;
-    }
-
-    public String getHashTag() {
-        return hashTag;
-    }
-
-    public void setHashTag(String hashTag) {
-        this.hashTag = hashTag;
-    }
-    
-    public int getComplain() {
-        return complain;
-    }
-
-    public void setComplain(int complain) {
-        this.complain = complain;
-    }
-
-    public Date getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
-    }
-    
-    
     public int getComplaint() {
         return complain;
     }
@@ -109,6 +69,14 @@ public class Tweets implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTekst() {
+        return tekst;
+    }
+
+    public void setTekst(String tekst) {
+        this.tekst = tekst;
     }
 
     public List<Profile> getHearts() {
