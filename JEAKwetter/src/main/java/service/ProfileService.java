@@ -25,85 +25,85 @@ public class ProfileService {
     
     
     /**
-     * 
-     * @return 
+     * Get all profile 
+     * @return all profile from select query in dao
      */
     public List<Profile> allProfile(){
         return pr.allProfile();
     }
     /**
-     * 
+     * create new user
      * @param profile
-     * @return 
+     * @return profile after create is succesfull
      */
     public Profile createNewUser(Profile profile){
         return pr.createNewUser(profile);
     }
     /**
-     * 
+     * Edit username of a profile with the given id of the profile
      * @param id
      * @param newUsername
-     * @return 
+     * @return true if succesfull else false
      */
     public boolean editUsername(int id, String newUsername){
         return pr.editUsername(id, newUsername);
     }
     /**
-     * 
+     * Edit bio of a profile with the given id of the profile
      * @param id
      * @param bio
-     * @return 
+     * @return true  if succesfull else false
      */
     public boolean editProfileBio(int id, String bio){
         return pr.editProfileBio(id, bio);
     }
     /**
-     * 
+     * Edit Location of a profile with the given id of the profile
      * @param id
      * @param location
-     * @return 
+     * @return true  if succesfull else false
      */
     public boolean editProfileLocation(int id , String location){
        return pr.editProfileLocation(id, location);
     }
     /**
-     * 
+     * Add new profile to the list that profile would like to follow
      * @param id
      * @param followingID
-     * @return 
+     * @return true if persist is succesfull
      */
     public boolean addFollowing(int id, int followingID){
         return pr.addFollowing(id, followingID);
     }
     /**
-     * 
+     * Get all profile that a profile of the given id is following
      * @param profileID
-     * @return 
+     * @return list of all profile
      */
     public List<Profile> getAllFollowing(int profileID){
         return pr.getAllFollowing(profileID);
     }
     /**
-     * 
+     * Get all profile that is following a profile
      * @param profileID
-     * @return 
+     * @return list of profile
      */
     public List<Profile> getAllFollower(int profileID){
-        return pr.getAllFollowing(profileID);
+        return pr.getAllFollower(profileID);
     }
     /**
-     * 
+     * Get all tweets of a profile with the given profile id
      * @param profileID
-     * @return 
+     * @return list of tweets
      */
     public List<Tweets> getAllTweets(int profileID){
         return pr.getAllTweets(profileID);
     }
     /**
-     * 
+     * Edit website of a profile with the given id of the profile
      * @param id
      * @param website
-     * @return 
+     * @return true  if succesfull else false
      */
     public boolean editProfileWebsite(int id, String website) {
         return pr.editProfileWebsite(id, website);

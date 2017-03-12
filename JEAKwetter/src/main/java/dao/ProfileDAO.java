@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -22,6 +23,13 @@ public class ProfileDAO {
     
     @PersistenceContext
     EntityManager em;
+
+    public ProfileDAO() {
+    }
+
+    public ProfileDAO(EntityManager em) {
+        this.em = em;
+    }
     
     public List<Profile> allProfile(){
         return em.createNamedQuery("Profile.all").getResultList();
@@ -85,9 +93,9 @@ public class ProfileDAO {
         try {
             Profile user =  getProfileById(id);
             Profile following  = getProfileById(followingID);
-            boolean check = following.addFollowing(user);
+            boolean check = user.addFollowing(following);
             if(check){
-                em.merge(following);
+                em.merge(user);
                 return true;
             }
             return false;
@@ -100,8 +108,7 @@ public class ProfileDAO {
     
     public List<Profile> getAllFollowing(int profileID){
         try{
-            Long longId = new Long(profileID);
-            List<Profile> result = em.find(Profile.class, longId).getFollowing();
+            List<Profile> result = getProfileById(profileID).getFollowing();
             return result;
         }
         catch (Exception e){
@@ -112,8 +119,8 @@ public class ProfileDAO {
     public List<Profile> getAllFollower(int profileID){
         try{
             Long longId = new Long(profileID);
-            List<Profile> result = em.createQuery("Select p.* from profile p where t.profile_id = :id").setParameter("id", longId).getResultList();
-            return result;
+            Query query = em.createQuery("Select p From profile p, profile_profile p1 where p.ID = p1.owner_ID and p1.following_ID = :id ").setParameter(":id", longId);
+            return query.getResultList();
         }
         catch (Exception e){
             return null;

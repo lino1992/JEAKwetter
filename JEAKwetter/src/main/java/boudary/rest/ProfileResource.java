@@ -75,14 +75,14 @@ public class ProfileResource {
         return ps.addFollowing(id, followingID);
     }
     @GET
-    @Path("GetAllFollowing")
+    @Path("GetAllFollowing/{id}")
     public List<Profile> getAllFollowing(@PathParam("id")int id){
         return ps.getAllFollowing(id);
     }
     @GET
     @Path("GetAllFollower/{id}")
     public List<Profile> getAllFollower(@PathParam("id")int id){
-        return ps.getAllFollowing(id);
+        return ps.getAllFollower(id);
     }
     @GET
     @Path("tweets/{id}")

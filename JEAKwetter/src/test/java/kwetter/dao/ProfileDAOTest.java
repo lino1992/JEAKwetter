@@ -9,7 +9,16 @@ import dao.ProfileDAO;
 import domain.Profile;
 import domain.Role;
 import domain.Tweets;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import org.eclipse.persistence.config.PersistenceUnitProperties;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -23,6 +32,11 @@ import static org.junit.Assert.*;
  */
 
 public class ProfileDAOTest {
+    
+    Properties prop = new Properties();
+    
+    EntityManagerFactory emf;
+    private EntityManager em;
     
     Profile profile;
     Profile profile1;
@@ -47,12 +61,11 @@ public class ProfileDAOTest {
     @Before
     public void setUp() {
         
-        profile = profile = new Profile("user1", "username1", "p@33word1");
-        profile1 = profile = new Profile("user2","username2", "p@33word2");
-        profile2 = profile = new Profile("user3", "username3", "p@33word3");
-        profile3 = profile = new Profile("user4", "username4", "p@33word4");
-        
-        
+//        profile = profile = new Profile("user1", "username1", "p@33word1");
+//        profile1 = profile = new Profile("user2","username2", "p@33word2");
+//        profile2 = profile = new Profile("user3", "username3", "p@33word3");
+//        profile3 = profile = new Profile("user4", "username4", "p@33word4");    
+//        em = emf.createEntityManager();
     }
     
     @After
@@ -67,7 +80,7 @@ public class ProfileDAOTest {
     
     @Test
     public void Test_Profile_DAO(){
-        
+//        profileDAO = new ProfileDAO(em);
 //        profileDAO.createNewUser(profile);
 //        profileDAO.createNewUser(profile1);
 //        profileDAO.createNewUser(profile2);

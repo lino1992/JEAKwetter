@@ -10,6 +10,7 @@ package dao;
 import domain.Profile;
 import domain.Role;
 import domain.Tweets;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -52,6 +53,17 @@ public class TweetsDAO {
            return em.find(Tweets.class, tweets.getId());
         }catch (Exception e) {
             return null;
+        }
+    }
+    
+    public List<Tweets> searchTweets(String hashTag){
+        List<Tweets> result = new ArrayList<>();
+        try {
+            result = em.createQuery("Select t from tweets t where t.subject = :subject").setParameter(":subject", hashTag).getResultList();
+            return result;
+        }
+        catch (Exception e){
+            return result;
         }
     }
     

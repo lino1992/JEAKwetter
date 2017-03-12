@@ -9,14 +9,14 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-03-10T12:48:22")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-03-13T00:29:11")
 @StaticMetamodel(Profile.class)
 public class Profile_ { 
 
+    public static volatile ListAttribute<Profile, Profile> owner;
     public static volatile SingularAttribute<Profile, String> website;
     public static volatile SingularAttribute<Profile, String> password;
     public static volatile ListAttribute<Profile, Role> role;
-    public static volatile ListAttribute<Profile, Profile> follower;
     public static volatile ListAttribute<Profile, Profile> following;
     public static volatile SingularAttribute<Profile, String> name;
     public static volatile SingularAttribute<Profile, String> bio;

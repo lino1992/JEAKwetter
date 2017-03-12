@@ -48,10 +48,43 @@ public class Profile implements Serializable {
     
     @OneToMany(mappedBy = "profile")
     private List<Tweets> tweets;
+    
+    
     @ManyToMany
     private List<Profile> following;
+    
     @ManyToMany(mappedBy = "following")
-    private List<Profile> follower;
+    private List<Profile> owner;
+    
+    public Profile(){
+    
+    }
+    
+    public Profile(String name, String username, String password) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.following = new ArrayList<>();
+        this.role = new ArrayList<>();
+        this.owner = new ArrayList<>();
+        this.tweets = new ArrayList<>();
+    }
+
+    public List<Role> getRole() {
+        return role;
+    }
+
+    public void setRole(List<Role> role) {
+        this.role = role;
+    }
+
+    public List<Profile> getOwner() {
+        return owner;
+    }
+
+    public void setOwner(List<Profile> owner) {
+        this.owner = owner;
+    }
 
     public List<Tweets> getTweets() {
         return tweets;
@@ -75,32 +108,6 @@ public class Profile implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Profile(String name, String username, String password) {
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.following = new ArrayList<>();
-        this.follower = new ArrayList<>();
-        this.role = new ArrayList<>();
-        this.tweets = new ArrayList<>();
-    }
-
-    public List<Profile> getFollower() {
-        return follower;
-    }
-
-    public void setFollower(List<Profile> follower) {
-        this.follower = follower;
-    }
-
-    public Profile(){
-        
-    }
-    
-    public Profile(String name){
-        this.name = name;
     }
 
     public Long getId() {
@@ -157,9 +164,7 @@ public class Profile implements Serializable {
             return true;
         }
         return false;
-        
     }
-    
     public void addTweets(Tweets tweets){
         this.tweets.add(tweets);
     }

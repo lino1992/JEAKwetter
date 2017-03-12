@@ -21,24 +21,24 @@ public class RoleService {
     @Inject
     RoleDAO r;
     /**
-     * 
+     * create a new role 
      * @param role
-     * @return 
+     * @return role if role is created else null
      */
     public Role createNewRole(Role role) {
         return r.createNewRole(role);
     }
     /**
-     * 
+     * add a profile to a role
      * @param role
-     * @return 
+     * @return true is it is succesfull
      */
     public boolean addRoleToUser(Role role){
         return r.addRoleToProfile(role);
     }
     /**
-     * 
-     * @return 
+     * Get all role is database
+     * @return list of all role
      */
     public List<Role> getAllRole() {
         return r.getAllRole();

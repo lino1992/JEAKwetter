@@ -16,6 +16,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import service.TweetsService;
 
@@ -49,6 +50,12 @@ public class TweetsResource {
      public Tweets createNewTweets(Tweets tweets) {
        return ts.createNewTweets(tweets);
     }
+     
+     @GET
+     @Path("SearchTweets")
+     public List<Tweets> searchTweets(@PathParam("hashTag")String hashTag){
+         return this.ts.searchTweets(hashTag);
+     }
      
      
 }

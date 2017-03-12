@@ -23,24 +23,24 @@ public class TweetsService {
     @Inject
     TweetsDAO tweets;
     /**
-     * 
+     * Delete tweets with the given tweets id
      * @param tweetsId
-     * @return 
+     * @return true is succesfull
      */
     public boolean deleteTweets(int tweetsId){
         return this.tweets.deleteTweets(tweetsId);
     }
     /**
-     * 
-     * @return 
+     * Get all tweets with complains
+     * @return list of  tweets
      */
     public List<Tweets> getAllTweetsWithComplains(){
         return this.tweets.getAllTweetsWithComplains();
     }
     /**
-     * 
+     * Create new tweets 
      * @param tweets
-     * @return 
+     * @return return tweets if succesfull else null
      */
     public Tweets createNewTweets(Tweets tweets) {
         return this.tweets.createNewTweets(tweets);
@@ -51,6 +51,14 @@ public class TweetsService {
      */
     public void setDAO(TweetsDAO tweetsDAO) {
         this.tweets = tweetsDAO;
+    }
+    /**
+     * Get all tweets by the tweets hashtag
+     * @param hashTag
+     * @return list of  available tweets
+     */
+    public List<Tweets> searchTweets(String hashTag){
+        return this.tweets.searchTweets(hashTag);
     }
     
     

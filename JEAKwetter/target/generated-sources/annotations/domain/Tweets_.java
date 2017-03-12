@@ -6,10 +6,11 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-03-10T12:48:22")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-03-13T00:29:11")
 @StaticMetamodel(Tweets.class)
 public class Tweets_ { 
 
+    public static volatile SingularAttribute<Tweets, String> subject;
     public static volatile SingularAttribute<Tweets, Profile> profile;
     public static volatile ListAttribute<Tweets, Profile> hearts;
     public static volatile SingularAttribute<Tweets, String> tekst;

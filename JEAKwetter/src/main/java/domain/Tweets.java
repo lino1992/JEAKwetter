@@ -29,6 +29,7 @@ public class Tweets implements Serializable {
     private Long id;
     @Column(length=140) 
     private String tekst;
+    private String subject;
     private int complain;
     private List<Profile> hearts;
     @ManyToOne
@@ -41,11 +42,19 @@ public class Tweets implements Serializable {
         this.profile = profile;
         this.hearts = new ArrayList<>();
     }
-    public int getComplaint() {
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public int getComplain() {
         return complain;
     }
 
-    public void setComplaint(int complain) {
+    public void setComplain(int complain) {
         this.complain = complain;
     }
 
