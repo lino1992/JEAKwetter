@@ -6,6 +6,8 @@
 package kwetter.dao;
 
 import dao.ProfileDAO;
+import dao.RoleDAO;
+import dao.TweetsDAO;
 import domain.Profile;
 import domain.Role;
 import domain.Tweets;
@@ -25,6 +27,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import util.DatabaseCleaner;
 
 /**
  *
@@ -35,8 +38,9 @@ public class ProfileDAOTest {
     
     Properties prop = new Properties();
     
-    EntityManagerFactory emf;
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestResource");
     private EntityManager em;
+    private EntityTransaction tx;
     
     Profile profile;
     Profile profile1;
@@ -48,6 +52,8 @@ public class ProfileDAOTest {
     
 
     ProfileDAO profileDAO;
+    RoleDAO roleDAO;
+    TweetsDAO tweetsDAO;
     
     @BeforeClass
     public static void setUpClass() {
@@ -61,15 +67,24 @@ public class ProfileDAOTest {
     @Before
     public void setUp() {
         
-//        profile = profile = new Profile("user1", "username1", "p@33word1");
-//        profile1 = profile = new Profile("user2","username2", "p@33word2");
-//        profile2 = profile = new Profile("user3", "username3", "p@33word3");
-//        profile3 = profile = new Profile("user4", "username4", "p@33word4");    
-//        em = emf.createEntityManager();
+        profile  = new Profile("user1", "username1", "p@33word1");
+        profile1  = new Profile("user2","username2", "p@33word2");
+        profile2  = new Profile("user3", "username3", "p@33word3");
+        profile3  = new Profile("user4", "username4", "p@33word4"); 
+//        try {
+//            new DatabaseCleaner(emf.createEntityManager()).clean();
+//        }catch(SQLException ex){
+//            Logger.getLogger(ProfileDAOTest.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+        em = emf.createEntityManager();
+        tx = em.getTransaction();
+        profileDAO = new ProfileDAO();
     }
     
     @After
     public void tearDown() {
+        
     }
 
     // TODO add test methods here.
@@ -80,15 +95,25 @@ public class ProfileDAOTest {
     
     @Test
     public void Test_Profile_DAO(){
-//        profileDAO = new ProfileDAO(em);
-//        profileDAO.createNewUser(profile);
-//        profileDAO.createNewUser(profile1);
-//        profileDAO.createNewUser(profile2);
-//        profileDAO.createNewUser(profile3);
-//        
-//        assertNotNull(profileDAO);
-//        List<Profile> users = profileDAO.allProfile();
-//        assertNotNull(users);
-//        assertEquals(4, users.size());
+        profileDAO = new ProfileDAO(em);
+        tx.begin();
+        profileDAO.createNewUser(profile);
+        profileDAO.createNewUser(profile1);
+        profileDAO.createNewUser(profile2);
+        profileDAO.createNewUser(profile3);
+        tx.commit();
+        
+        assertNotNull(profileDAO);
+        List<Profile> users = profileDAO.allProfile();
+        assertNotNull(users);
+        assertEquals(4, users.size());
+        
+        
+        tx.begin();
+        profileDAO.addFollowing(1, 4);
+        profileDAO.getAllFollowing(1);
+        tx.commit();
+        
+        
     }
 }

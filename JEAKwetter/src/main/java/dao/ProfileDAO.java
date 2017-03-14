@@ -149,6 +149,10 @@ public class ProfileDAO {
             return false;
         }
     }
+
+    public void setEntity(EntityManager em) {
+        this.em = em;
+    }
     
     
     
