@@ -74,12 +74,6 @@ public class ProfileServiceTest {
     @After
     public void tearDown() {
     }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
     
     @Test
     public void Test_SaveUser(){
@@ -88,12 +82,22 @@ public class ProfileServiceTest {
        
        verify(profileDAO, Mockito.times(1)).createNewUser(profile);
     }
+    @Test
+    public void Test_GetAllUser(){
+        profile = new Profile( "user1", "username1", "p@33word1");
+        profile = psservice.createNewUser(profile);
+        Profile profile1 =  new Profile( "user2", "username2", "p@33word2");
+        profile1 = psservice.createNewUser(profile1);
+        
+        psservice.addFollowing(1, 2);
+        
+        verify(profileDAO, Mockito.times(1)).addFollowing(1, 2);
+    }
     
     @Test
     public void Test_SaveRole(){
        role = new Role("Test");
        rlService.createNewRole(role);
-       
         verify(roleDAO, Mockito.times(1)).createNewRole(role);
     }
     

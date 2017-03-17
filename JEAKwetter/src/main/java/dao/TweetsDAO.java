@@ -25,6 +25,13 @@ public class TweetsDAO {
     
     @PersistenceContext
     EntityManager em;
+
+    public TweetsDAO() {
+    }
+
+    public TweetsDAO(EntityManager em) {
+        this.em = em;
+    }
     
     public boolean deleteTweets(int tweetsId){
         try{

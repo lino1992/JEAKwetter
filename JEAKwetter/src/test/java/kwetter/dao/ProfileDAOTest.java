@@ -48,7 +48,7 @@ public class ProfileDAOTest {
     Profile profile3;
     List<Role> role;
     List<Profile> following;
-    List<Tweets> tweets;
+    Tweets tweets;
     
 
     ProfileDAO profileDAO;
@@ -96,11 +96,12 @@ public class ProfileDAOTest {
     @Test
     public void Test_Profile_DAO(){
         profileDAO = new ProfileDAO(em);
+        tweetsDAO = new TweetsDAO(em);
         tx.begin();
-        profileDAO.createNewUser(profile);
-        profileDAO.createNewUser(profile1);
-        profileDAO.createNewUser(profile2);
-        profileDAO.createNewUser(profile3);
+        profile = profileDAO.createNewUser(profile);
+        profile1 = profileDAO.createNewUser(profile1);
+        profile2 = profileDAO.createNewUser(profile2);
+        profile3 =profileDAO.createNewUser(profile3);
         tx.commit();
         
         assertNotNull(profileDAO);
@@ -114,6 +115,16 @@ public class ProfileDAOTest {
         profileDAO.getAllFollowing(1);
         tx.commit();
         
+        Profile profileWithFriends = profileDAO.getProfileById(1);
+        assertTrue(profileWithFriends.getFollowing().size() == 1);
+        
+        tweets = new Tweets("Test tekst", profileWithFriends);
+        tx.begin();
+        tweets = tweetsDAO.createNewTweets(tweets);
+        tx.commit();
+        
+        assertTrue(tweets.getProfile().getId() == 1);
+        assertTrue(tweets.getTekst() == "Test tekst");
         
     }
 }

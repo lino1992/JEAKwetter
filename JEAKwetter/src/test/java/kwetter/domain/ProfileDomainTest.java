@@ -81,6 +81,7 @@ public class ProfileDomainTest {
         
         Assert.assertTrue(1 == role.getProfile_role().size());
         
+        Assert.assertFalse(0 == role.getProfile_role().size());
         
         
     }
