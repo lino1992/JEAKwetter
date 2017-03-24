@@ -25,6 +25,7 @@ public class ProfileDAO {
     EntityManager em;
 
     public ProfileDAO() {
+        //Lege contructor
     }
 
     public ProfileDAO(EntityManager em) {
