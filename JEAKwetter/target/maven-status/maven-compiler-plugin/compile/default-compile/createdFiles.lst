@@ -1,4 +1,5 @@
 dao\TweetsDAO.class
+controller\ProfileController.class
 util\Hash.class
 dao\ProfileDAO.class
 domain\Role.class
@@ -7,8 +8,10 @@ boudary\rest\RoleResource.class
 boudary\rest\ProfileResource.class
 dao\RoleDAO.class
 domain\Tweets_.class
+controller\AdministratorController.class
 domain\Profile_.class
 domain\Tweets.class
+controller\HomeControler.class
 boudary\rest\TweetsResource.class
 boudary\rest\JARSconfig.class
 domain\Role_.class
