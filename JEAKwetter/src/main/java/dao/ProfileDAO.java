@@ -6,7 +6,6 @@
 package dao;
 
 import domain.Profile;
-import domain.Role;
 import domain.Tweets;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -109,8 +108,9 @@ public class ProfileDAO {
     
     public List<Profile> getAllFollowing(int profileID){
         try{
-            List<Profile> result = getProfileById(profileID).getFollowing();
-            return result;
+            Long longId = new Long(profileID);
+            Query query = em.createNamedQuery("Profile.getFollowingByOwnerId").setParameter("id", longId);
+            return query.getResultList();
         }
         catch (Exception e){
             return null;
@@ -119,9 +119,9 @@ public class ProfileDAO {
     
     public List<Profile> getAllFollower(int profileID){
         try{
-            Long longId = new Long(profileID);
-            Query query = em.createQuery("Select p From profile p, profile_profile p1 where p.ID = p1.owner_ID and p1.following_ID = :id ").setParameter(":id", longId);
-            return query.getResultList();
+            List<Profile> result = getProfileById(profileID).getFollower();
+            return result;
+            
         }
         catch (Exception e){
             return null;
@@ -153,6 +153,16 @@ public class ProfileDAO {
 
     public void setEntity(EntityManager em) {
         this.em = em;
+    }
+
+    public Profile getProfileByName(String name) {
+        try {
+            List<Profile> resutlList =  em.createNamedQuery("Profile.byUsername").setParameter("username", name).getResultList();
+            Profile user = resutlList.get(0);
+            return user;
+        }catch (Exception ex) {
+            return null;
+        }
     }
     
     

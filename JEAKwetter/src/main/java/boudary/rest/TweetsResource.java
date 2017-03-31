@@ -57,5 +57,11 @@ public class TweetsResource {
          return this.ts.searchTweets(hashTag);
      }
      
+     @GET
+     @Path("GetAllFollowingTweets/{id}")
+     public List<Tweets> getAllFollowingTweets(@PathParam("id")int id){
+        return this.ts.getAllFollowingTweets(id);
+    }
+     
      
 }

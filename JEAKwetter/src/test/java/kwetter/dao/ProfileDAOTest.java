@@ -112,11 +112,11 @@ public class ProfileDAOTest {
         
         tx.begin();
         profileDAO.addFollowing(1, 4);
-        profileDAO.getAllFollowing(1);
+        profileDAO.getAllFollower(1);
         tx.commit();
         
         Profile profileWithFriends = profileDAO.getProfileById(1);
-        assertTrue(profileWithFriends.getFollowing().size() == 1);
+        assertTrue(profileWithFriends.getFollower().size() == 1);
         
         tweets = new Tweets("Test tekst", profileWithFriends);
         tx.begin();

@@ -5,9 +5,9 @@
  */
 package domain;
 
-import dao.TweetsDAO;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,14 +15,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author lino_
  */
 @Entity
-@NamedQuery(name = "Tweets.all", query="SELECT t FROM Tweets t")
+@NamedQueries ({
+    @NamedQuery(name = "Tweets.all", query="SELECT t FROM Tweets t"),
+    @NamedQuery(name = "Tweets.byUserId", query="SELECT T FROM Tweets t where t.profile.id = :id"),
+    @NamedQuery(name = "Tweets.allTweetsFollowing", query="SELECT T FROM Tweets t JOIN t.profile p  JOIN p.follower f where p.id = :id and f.id = t.profile.id")
+})
+
 public class Tweets implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +38,8 @@ public class Tweets implements Serializable {
     private String tekst;
     private String subject;
     private int complain;
-    private List<Profile> hearts;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date timeCreated;
     @ManyToOne
     private Profile profile;
     
@@ -40,8 +48,24 @@ public class Tweets implements Serializable {
     public Tweets(String tekst, Profile profile) {
         this.tekst = tekst;
         this.profile = profile;
-        this.hearts = new ArrayList<>();
+        this.timeCreated = new Date();
     }
+
+    public Tweets(String message, String subject, Profile profile) {
+        this.tekst = message;
+        this.subject = subject;
+        this.profile = profile;
+        this.timeCreated = new Date();
+    }
+
+    public Date getTimeCreated() {
+        return timeCreated;
+    }
+
+    public void setTimeCreated(Date timeCreated) {
+        this.timeCreated = timeCreated;
+    }
+    
     public String getSubject() {
         return subject;
     }
@@ -87,14 +111,6 @@ public class Tweets implements Serializable {
 
     public void setTekst(String tekst) {
         this.tekst = tekst;
-    }
-
-    public List<Profile> getHearts() {
-        return hearts;
-    }
-
-    public void setHearts(List<Profile> hearts) {
-        this.hearts = hearts;
     }
 
     

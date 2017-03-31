@@ -5,10 +5,10 @@
  */
 package service;
 
-import dao.ProfileDAO;
 import dao.TweetsDAO;
 import domain.Profile;
 import domain.Tweets;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -22,6 +22,9 @@ public class TweetsService {
     
     @Inject
     TweetsDAO tweets;
+    
+    @Inject
+    ProfileService ps;
     /**
      * Delete tweets with the given tweets id
      * @param tweetsId
@@ -43,6 +46,7 @@ public class TweetsService {
      * @return return tweets if succesfull else null
      */
     public Tweets createNewTweets(Tweets tweets) {
+        
         return this.tweets.createNewTweets(tweets);
     }
     /**
@@ -60,6 +64,22 @@ public class TweetsService {
     public List<Tweets> searchTweets(String hashTag){
         return this.tweets.searchTweets(hashTag);
     }
+
+    public List<Tweets> getTweetsByProfileId(Long id) {
+        return this.tweets.getTweetsByProfileId(id);
+    }
+    public List<Tweets> getAllFollowingTweets(int id){
+        List<Tweets> result = new ArrayList<>();
+        List<Profile> following = new ArrayList<>();
+        following = ps.getAllFollowing(id);
+        for(Profile p : following){
+            result.addAll(getTweetsByProfileId(p.getId()));
+        }
+        return result;
+
+
+    }
+    
     
     
     

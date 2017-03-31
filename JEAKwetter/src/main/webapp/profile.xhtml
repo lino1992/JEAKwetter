@@ -5,12 +5,107 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>#{homeController.title}</title>
+            </f:facet>
+
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">               
+
+                <p:layoutUnit position="west" size="250" >
+                    <f:facet name="header" >
+                        <p:graphicImage value="resources/images/logo.jpg" style="width:220px;height: 200px;"/>
+                    </f:facet>
+                    <p:panel>
+                        <p:commandButton value="Home" action="#{profileController.navigateToHome()}"  style="width: 200px;"/> 
+                    </p:panel>
+                    <p:panel>
+                        <p:commandButton value="Profile" style="width: 200px;" />
+                    </p:panel>
+                    <p:panel>
+                        <p:commandButton value="Administrator" style="width: 200px;" />
+                    </p:panel>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+<!--                    <h:panelGrid columns="4" width="100%;">
+                        <p:panel style="width: 900px; border: hidden;"></p:panel>
+                        <p:panel>
+                            <p:inputText style="margin-top: 3px;" placeholder="Search"/>
+                        </p:panel>
+                        <p:panel>
+                            <p:selectOneMenu id="country" style="width:150px;" >   
+                                <f:selectItems value="#{homeController.language}"  />
+                            </p:selectOneMenu>
+                        </p:panel>
+                        <p:panel>
+                            <p:commandButton type="button" value="#{homeController.loginStatus}"/>
+                        </p:panel>
+                    </h:panelGrid>-->
+
+
+
+
+                    <p:panelGrid columns="3" columnClasses="ui-grid-col-3,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
+                        <p:panel style="width: 350px; height: 800px;">
+                            <p:graphicImage value="resources/images/logo.jpg" style="width:220px;height: 200px; margin-left: 50px;"/>
+                            <p:panel>
+                                Name: &#160; <h6>#{profileController.name}</h6>
+                            </p:panel>
+                            <p:panel>
+                                Website: &#160; <h6>#{profileController.website}</h6>
+                            </p:panel>
+                            <p:panel style="height: 300px;">
+                                Bio:  
+                                <h6>#{profileController.bio}</h6>
+                            </p:panel>
+
+
+                        </p:panel>
+                        <p:panel style="width: 700px; height: 800px;" >
+                            <h:form>
+                                <p:dataList  value="#{profileController.tweets}" var="tweets" type="ordered" paginator="true" rows="7" styleClass="paginated" >
+                                    <h5>#{tweets.profile.name} &#160; #{tweets.timeCreated}</h5>
+                                    <h6>#{tweets.tekst} &#160; #{tweets.subject}</h6>
+                                </p:dataList>
+                            </h:form>
+                        </p:panel>
+                        <p:panel style="width: 500px; border: hidden;">
+                            <p:panel ><h4>Tweets #{profileController.tweets.size()} &#160; &#160; Follower #{profileController.follower.size()}  &#160; &#160; Following #{profileController.following.size()}</h4></p:panel>
+                            <p:dataScroller style="height: 500px; margin-top: 30px;" value="#{homeController.following}" var="profile">
+                                
+                                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail" >
+                                    <f:ajax event="click" listener=""></f:ajax>
+                                    <p:graphicImage value="resources/images/logo.jpg" style="width:80px;height: 80px; margin-left: 10px;"/>
+
+                                    <p:outputPanel>
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h6>Name: &#160; #{profile.name}</h6>
+                                            <h6>Website: &#160; #{profile.website}</h6>
+                                            
+                                        </h:panelGrid>
+                                    </p:outputPanel>
+                                </h:panelGrid>
+                            </p:dataScroller>
+                        </p:panel>        
+                    </p:panelGrid>
+
+
+
+
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
 </html>

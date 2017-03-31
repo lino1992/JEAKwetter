@@ -68,7 +68,7 @@ public class ProfileDomainTest {
         
         profile.addFollowing(profile1);
         
-        Assert.assertTrue(1 == profile.getFollowing().size());
+        Assert.assertTrue(1 == profile.getFollower().size());
         
         tweets = new Tweets("Test tweets", profile);
         Assert.assertEquals(tweets.getProfile(), profile);

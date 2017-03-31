@@ -4,12 +4,12 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <f:view contentType="text/html">
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>PrimeFaces</title>
+                <title>#{homeController.title}</title>
             </f:facet>
+
         </h:head>
 
         <h:body>
@@ -20,38 +20,100 @@
                     <f:facet name="header" >
                         <p:graphicImage value="resources/images/logo.jpg" style="width:220px;height: 200px;"/>
                     </f:facet>
-                    <p:menu>
-                        <p:menuitem value="Home" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
-                        <p:menuitem value="Profile" url="http://www.primefaces.org/documentation.html" />
-                        <p:menuitem value="Administrator" url="http://www.primefaces.org/documentation.html" />
-                    </p:menu>
+                    <p:panel>
+                       <p:commandButton value="Home"  style="width: 200px;"/> 
+                    </p:panel>
+                    <p:panel>
+                        <p:commandButton value="Profile" action="#{homeController.navigateToProfile()}" style="width: 200px;" />
+                    </p:panel>
+                    <p:panel>
+                        <p:commandButton value="Administrator" style="width: 200px;" />
+                    </p:panel>
+                        
+                        
+                        
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                    <div class="ui-g" style="border-bottom: solid;">
-                        <div class="ui-g-9"></div>
-                        <div class="ui-g-2">
+                    <h:panelGrid columns="4" width="100%;">
+                        <p:panel style="width: 900px; border: hidden;"></p:panel>
+                        <p:panel>
                             <p:inputText style="margin-top: 3px;" placeholder="Search"/>
-                        </div>
-                        <div class="ui-g-1">
-                            <p:commandButton type="button" value="Login" onclick="PF('dlg1').show();"/>
-                        </div>
-                    </div>
-                    <p:dialog header="Basic Dialog" widgetVar="dlg1" minHeight="40">
-                        <div class="ui-g">
-                            <div class="ui-g-1"></div>
-                            <div class="ui-g-2">
-                                <h:outputLabel for="name" value="Standard Label:" />
-                            </div>
-                        </div>
-                    </p:dialog>
+                        </p:panel>
+                        <p:panel>
+                            <p:selectOneMenu id="country" style="width:150px;" >   
+                                <f:selectItems value="#{homeController.language}"  />
+                            </p:selectOneMenu>
+                        </p:panel>
+                        <p:panel>
+                            <p:commandButton type="button" value="#{homeController.loginStatus}"/>
+                        </p:panel>
+                    </h:panelGrid>
+                    <h:panelGrid columns="3" width="100%;">
+                        <p:panel id="Newtweets" header="New tweets" style="height: 350px; width: 1000px;">
+                            <h3 style="margin-left: 100px;">What's happening ?</h3>
+                            
+                            <h:form>
+                                <p:inputTextarea rows="8" cols="80" value="#{homeController.message}" style="margin-left: 100px;" />
+                                <p:commandButton  value="Send" action="#{homeController.createNewTweets()}" update="tweetinfo tweetsTimeline" style="margin-left: 770px;"/>
+                            </h:form>
+                        </p:panel>
+                        <p:panel id="tweetinfo" header="Tweet info"  style="height: 350px; width: 600px;">
+                            <h:panelGrid columns="2" width="100%;">
+                                <p:panel style="border: hidden; height: 30px;">
+                                    <h4>Your tweets #{homeController.tweets.size()}</h4>
+                                </p:panel>
+                                <p:panel style="border: hidden; height: 30px;">
+                                    <h4>#{homeController.lastedTime}</h4>
+                                </p:panel>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" width="100%;" style="margin-top: 10px;">
+                                <p:panel style="border: hidden; height: 100px;">
+                                    #{homeController.lastedTweets} &#160; #{homeController.lastedTweetsSubject}
+                                </p:panel>
+                                
+                            </h:panelGrid>
+                              
+                            <h:panelGrid columns="2" width="100%;" style="margin-top: 20px;">
+                                <p:panel style="border: hidden; height: 30px;">
+                                    <h5>Following #{homeController.following.size()}</h5>
+                                </p:panel>
+                                <p:panel style="border: hidden; height: 30px;">
+                                    <h5>Follower #{homeController.follower.size()}</h5>
+                                </p:panel>
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:panelGrid>
+                    <h:panelGrid columns="3" width="100%;">
+                        <p:panel id="tweetsTimeline" header="Trends" style="height: 500px; width: 1000px;">
+                            <p:tabView>
+                                <p:tab title="Timeline">
+                                    <h:form>
+                                        <p:dataList  value="#{homeController.timeLineTweets}" var="tweets" type="ordered" paginator="true" rows="3" styleClass="paginated" >
+                                            <h5>#{tweets.profile.name} &#160; #{tweets.timeCreated}</h5>
+                                            #{tweets.tekst} &#160; #{tweets.subject}
+                                        </p:dataList>
+                                    </h:form>
+                                </p:tab>
+                                <p:tab title="@Mention">
+                                    <h:panelGrid columns="2" cellpadding="150">
+                                        
+                                    </h:panelGrid>
+                                </p:tab>
+
+                            </p:tabView>
+                        </p:panel>
+                        <p:panel header="Trends" style="height: 500px; width: 600px;">
+                                    testestestes
+                                
+                        </p:panel>
+                    </h:panelGrid>
+
                 </p:layoutUnit>
 
             </p:layout>
 
         </h:body>
-
-    </f:view>
 </html>
 
 

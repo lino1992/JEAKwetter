@@ -11,10 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
@@ -23,7 +25,12 @@ import javax.persistence.OneToMany;
  * @author lino_
  */
 @Entity
-@NamedQuery(name = "Profile.all", query="SELECT p FROM Profile p")
+@NamedQueries({
+    @NamedQuery(name = "Profile.all", query="SELECT p FROM Profile p"),
+    @NamedQuery(name = "Profile.byUsername", query="SELECT p FROM Profile p Where p.username = :username"),
+    @NamedQuery(name = "Profile.getFollowingByOwnerId", query="SELECT p FROM Profile p INNER JOIN p.follower o  Where o.id = :id")
+})
+
 public class Profile implements Serializable {
     
     @Id
@@ -38,23 +45,20 @@ public class Profile implements Serializable {
     private String username;
     @Column (length = 500)
     private String password;
-    private Blob picture;
-    
-
-    
+    private String picture;
     
     @ManyToMany(mappedBy = "profile_role")
     private List<Role> role;
     
-    @OneToMany(mappedBy = "profile")
+    @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY)
     private List<Tweets> tweets;
     
     
     @ManyToMany
-    private List<Profile> following;
+    private List<Profile> follower;
     
-    @ManyToMany(mappedBy = "following")
-    private List<Profile> owner;
+    @ManyToMany(mappedBy = "follower", fetch = FetchType.LAZY)
+    private List<Profile> following;
     
     public Profile(){
     
@@ -64,12 +68,20 @@ public class Profile implements Serializable {
         this.name = name;
         this.username = username;
         this.password = password;
-        this.following = new ArrayList<>();
+        this.follower = new ArrayList<>();
         this.role = new ArrayList<>();
-        this.owner = new ArrayList<>();
+        this.following = new ArrayList<>();
         this.tweets = new ArrayList<>();
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+    
     public List<Role> getRole() {
         return role;
     }
@@ -78,14 +90,14 @@ public class Profile implements Serializable {
         this.role = role;
     }
 
-    public List<Profile> getOwner() {
-        return owner;
+    public List<Profile> getFollowing() {
+        return following;
     }
 
-    public void setOwner(List<Profile> owner) {
-        this.owner = owner;
+    public void setFollowing(List<Profile> following) {
+        this.following = following;
     }
-
+    
     public List<Tweets> getTweets() {
         return tweets;
     }
@@ -150,17 +162,16 @@ public class Profile implements Serializable {
         this.website = website;
     }
 
-    public List<Profile> getFollowing() {
-        return following;
+    public List<Profile> getFollower() {
+        return follower;
     }
 
-    public void setFollowing(List<Profile> following) {
-        this.following = following;
+    public void setFollower(List<Profile> follower) {
+        this.follower = follower;
     }
-    
     public boolean addFollowing(Profile profile){
-        if(!this.following.contains(profile)){
-            this.following.add(profile);
+        if(!this.follower.contains(profile)){
+            this.follower.add(profile);
             return true;
         }
         return false;

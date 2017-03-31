@@ -66,11 +66,29 @@ public class TweetsDAO {
     public List<Tweets> searchTweets(String hashTag){
         List<Tweets> result = new ArrayList<>();
         try {
-            result = em.createQuery("Select t from tweets t where t.subject = :subject").setParameter(":subject", hashTag).getResultList();
+            result = em.createQuery("Select t from Tweets t where t.subject = :subject").setParameter("subject", hashTag).getResultList();
             return result;
         }
         catch (Exception e){
             return result;
+        }
+    }
+
+    public List<Tweets> getTweetsByProfileId(Long id) {
+        try{
+            List<Tweets> result = em.createNamedQuery("Tweets.byUserId").setParameter("id", id).getResultList();
+            return result;
+        }catch (Exception ex){
+            return null;
+        }
+    }
+    
+    public List<Tweets> getAllFollowingTweets(int id){
+        try {
+            List<Tweets> result = em.createNamedQuery("Tweets.allTweetsFollowing").setParameter("id", id).getResultList();
+            return result;
+        }catch(Exception e) {
+            return null;
         }
     }
     

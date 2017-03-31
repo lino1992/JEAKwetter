@@ -115,6 +115,10 @@ public class ProfileService {
     public void setDAO(ProfileDAO profileDAO) {
         this.pr = profileDAO;
     }
+
+    public Profile getProfileByUsername(String name) {
+        return this.pr.getProfileByName(name);
+    }
     
     
     
